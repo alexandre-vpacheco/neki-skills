@@ -1,0 +1,10 @@
+.image-container{
+    height: 58vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagemNotFound{
+    width: 50%;
+}

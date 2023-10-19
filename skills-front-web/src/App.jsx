@@ -1,14 +1,15 @@
-import './App.css'
-import { Outlet } from 'react-router-dom'
-
+import './App.css';
+import Rotas from './Routes/Routes';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>Sistema Skill</h1>
-      <Outlet />
-    </div>
+    <BrowserRouter>
+      <div className='content-container' style={{ minHeight: 'calc(100vh - 350px)' }}>
+        <Rotas />
+      </div>
+    </BrowserRouter>
   )
 }
 
