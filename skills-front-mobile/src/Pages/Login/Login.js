@@ -84,10 +84,7 @@ const styles = StyleSheet.create({
     txt: {
         fontSize: 22,
         marginBottom: 50,
-        backgroundColor: 'black',
         color: 'white',
-        borderTopLeftRadius: 20,
-        borderBottomRightRadius: 20,
         padding: 20,
 
     },

@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Home.css'
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Home = () => {
 
     const navigate = useNavigate();
 
-    const handleCadastrarSkill = () => {
+    const handleListarSkills = () => {
 
     }
+
+    const [skills, setSkills] = useState([]);
 
     const handleSair = () => {
         navigate(`/Login`)
     }
 
+    useEffect(() => {
+        // Faz a requisição para o endpoint da API que retorna as skills
+        axios.get('http://localhost:8080/skills')
+          .then(response => {
+            // Define a lista de skills com os dados recebidos
+            setSkills(response.data);
+          })
+          .catch(error => {
+            console.error('Erro ao buscar skills:', error);
+          });
+      }, []);
 
     return (
         <>
@@ -23,13 +37,21 @@ const Home = () => {
                     <button onClick={handleSair} className="sairButton">Logout</button>
                 </header>
             </div>
+
+            <div>
+                <h2>Lista de Skills</h2>
+                <ul>
+                    {skills.map(skill => (
+                        <li key={skill.id_skill}>{skill.nome}</li>
+                    ))}
+                </ul>
+            </div>
+
             <div className="r-container-home">
-                <span className="title">Minhas Skills</span>
+            <button className="button1" onClick={handleListarSkills}>Listar Skills</button>
                 <form className="form-home">
-                    <input type="text" placeholder="Skill 1" />
-                    <input type="text" placeholder="Skill 2" />
-                    <input type="text" placeholder="Skill 3" />
-                    <button className="button1" onClick={handleCadastrarSkill}>Cadastrar</button>
+
+                    
                 </form>
             </div>
         </>
