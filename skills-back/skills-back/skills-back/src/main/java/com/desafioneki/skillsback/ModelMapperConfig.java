@@ -1,11 +1,11 @@
-package com.desafioneki.skillsback.controllers;
+package com.desafioneki.skillsback;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ModelMapperConfig {  
-	@Bean
+public class ModelMapperConfig {
+    @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

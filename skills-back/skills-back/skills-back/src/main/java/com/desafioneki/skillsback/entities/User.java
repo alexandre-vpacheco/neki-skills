@@ -1,32 +1,40 @@
 package com.desafioneki.skillsback.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_user")
 
 @Entity
 @Table(name = "user", schema = "public")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   
-	@Column(name = "id_user")	
-	private Integer id_user;
-	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_user;
+
 	@NotBlank
-	@Column(name = "username")
-	private String username;
-	
+    @Column(unique = true)
+    private String username;
+
 	@NotBlank
-	@Column(name = "senha")
-	private String senha;
+    private String senha;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserSkills> userSkills;
 
 	public Integer getId_user() {
 		return id_user;
@@ -51,5 +59,16 @@ public class User implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-   
+
+	public List<UserSkills> getUserSkills() {
+		return userSkills;
+	}
+
+	public void setUserSkills(List<UserSkills> userSkills) {
+		this.userSkills = userSkills;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}       
 }

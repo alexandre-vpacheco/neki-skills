@@ -1,65 +1,92 @@
- /* Criação das tabelas e constraints. (EXECUTAR NESTA ORDEM)*/
+ /* Criação das tabelas e constraints. (EXECUTAR NESTA ORDEM) */
  
  /*
+ 
     CREATE TABLE public.user (
 	id_user serial NOT NULL,
-	username varchar(50) NOT NULL,
-	senha varchar(12) NULL,
-	CONSTRAINT users_key UNIQUE (username),
-	CONSTRAINT users_pkey PRIMARY KEY (id_user)
+	username VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+	CONSTRAINT user_key UNIQUE (username),
+	CONSTRAINT user_pkey PRIMARY KEY (id_user)
 );
-
-    CREATE TABLE public.level (
-	id_level serial NOT NULL,
-	level int4 NOT NULL,
-	id_user int4 NOT NULL,
-	CONSTRAINT level_pkey PRIMARY KEY (id_level)
-);
-
-    ALTER TABLE public.level ADD FOREIGN KEY (id_user) REFERENCES public.user(id_user);
 
     CREATE TABLE public.skill (
 	id_skill serial NOT NULL,
-	nome_skill varchar(50) NOT NULL,
-	imagem_url varchar(255) NOT NULL,
-	imagem_nome varchar(255),
-	imagem_filename varchar(255),
-	descricao varchar(500) NOT NULL,
-	id_user int4 NOT NULL,
-    id_level int4 NOT NULL,
-	CONSTRAINT skills_pkey PRIMARY KEY (id_skill)
+	imagem_url text NOT NULL,
+	nome_skill varchar(255) NOT NULL,
+	descricao text NOT NULL,
+	CONSTRAINT skill_pkey PRIMARY KEY (id_skill)
 );
 
-    ALTER TABLE public.skill ADD FOREIGN KEY (id_user) REFERENCES public.user(id_user);
-    
-    ALTER TABLE public.skill ADD FOREIGN KEY (id_level) REFERENCES public.level(id_level);
-    
-*/    
+    CREATE TABLE public.skill_user (
+	id_skill_user serial NOT NULL,
+	id_user int4 REFERENCES public.user(id_user)  NOT null,
+	id_skill int4 REFERENCES skill(id_skill) NOT NULL,
+	level varchar(50) NOT NULL,
+	CONSTRAINT skill_user_pkey PRIMARY KEY (id_skill_user)
+);
+
+*/
+   
+/* Inserts Users */
+
+INSERT INTO public.user(username, senha)
+VALUES('alexandre', '123456') ON conflict(username) do nothing;
+
+INSERT INTO public.user(username, senha)
+VALUES('joao', '123456') ON conflict(username) do nothing;
+
+/* Inserts Skills */
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('1', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png', 'PostgresSQL','Habilidade com PostgresSQL para gerenciamento de bancos de dados.') ON CONFLICT DO NOTHING;
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('2', 'https://p92.hu/binaries/content/gallery/p92website/technologies/spring-overview.png', 'Spring Boot','Habilidade de desenvolvimento de API REST com o Spring Boot e Java.') ON CONFLICT DO NOTHING;
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('3', 'https://cdn.freebiesupply.com/logos/large/2x/react-1-logo-png-transparent.png', 'React','Habilidade de desenvolvimento frontend web com React.') ON CONFLICT DO NOTHING;
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('4', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/768px-JavaScript-logo.png', 'JavaScript', 'Habilidade de desenvolvimento frontend web com a linguagem JavaScript.') ON CONFLICT DO NOTHING;
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('5', 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.png', 'CSS','Linguagem de marcação para desenvolvimento web.') ON CONFLICT DO NOTHING;
+
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
+VALUES ('6', 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_960_720.png', 'HTML','Linguagem de marcação para desenvolvimento web.') ON CONFLICT DO NOTHING;
+
+INSERT INTO public.skill(id_skill, imagem_url, nome, descricao)
+VALUES ('7', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/539px-React-icon.svg.png', 'React Native','Habilidade de desenvolvimento de aplicações mobile com React Native.') ON CONFLICT DO NOTHING;
+
+/* Inserts Skills de Users */
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('1', '1', '1','Avançado') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('2', '1', '2','Intermediário') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('3', '1', '3','Intermediário') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('4', '1', '7','Intermediário') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('5', '2', '4','Iniciante') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('6', '2', '5','Iniciante') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('7', '2', '6','Iniciante') ON CONFLICT DO NOTHING;
+
+INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
+VALUES ('8', '2', '3','Iniciante') ON CONFLICT DO NOTHING;
 
 /* Executar nesta ordem para apagar as tabelas. */
 
- --DROP TABLE public.skill;
- --DROP TABLE public.level;
- --DROP TABLE public.user;
-
-/* Inserts */
-
---INSERT INTO public.user(username, senha)
---VALUES('alexandre', '123456') ON conflict(username) do nothing;
-
-INSERT INTO public.user(username, senha)
-VALUES('João', '123456') ON conflict(username) do nothing;
-
---INSERT INTO level(id_level, level, id_user)
---VALUES ('1', '8', '1') ON CONFLICT DO NOTHING;
-
---INSERT INTO level(id_level, level, id_user)
---VALUES ('2', '7', '1') ON CONFLICT DO NOTHING;
-
---INSERT INTO skill(id_skill, nome_skill, imagem_url, descricao, id_user, id_level)
---VALUES ('1', 'JavaScript', 'https://i.pinimg.com/736x/28/75/3d/28753ddf79d70042ba86564947e13bf5.jpg', 'Habilidade de desenvolvimento de aplicações web com JavaScript.', '1', '1' ) ON CONFLICT DO NOTHING;
-
---INSERT INTO skill(id_skill, nome_skill, imagem_url, descricao, id_user, id_level)
---VALUES ('2', 'Spring Boot', 'https://p92.hu/binaries/content/gallery/p92website/technologies/spring-overview.png', 'Habilidade de desenvolvimento de API REST com o Spring Boot.', '1', '2' ) ON CONFLICT DO NOTHING;
-
-
+-- DROP TABLE public.skill_user;
+-- DROP TABLE public.skill;
+-- DROP TABLE public.user;
