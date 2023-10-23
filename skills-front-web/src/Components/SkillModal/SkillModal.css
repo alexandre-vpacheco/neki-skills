@@ -1,0 +1,9 @@
+.text {
+    color: black;
+    margin-left: 0;
+}
+
+.modal-container {
+    height: 200px;
+    flex: 100%;
+}

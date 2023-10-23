@@ -35,6 +35,10 @@ body {
     height: 500px;
 }
 
+.text {
+    color:black;
+}
+
 .form-home {
     display: flex;
     flex-direction: column;
