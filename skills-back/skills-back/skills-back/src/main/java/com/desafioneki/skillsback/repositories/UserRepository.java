@@ -6,4 +6,6 @@ import com.desafioneki.skillsback.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 
+	Object findByUsername(String username);
+
 }

@@ -56,34 +56,31 @@ VALUES ('5', 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_1280.p
 INSERT INTO skill(id_skill, imagem_url, nome, descricao)
 VALUES ('6', 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_960_720.png', 'HTML','Linguagem de marcação para desenvolvimento web.') ON CONFLICT DO NOTHING;
 
-INSERT INTO public.skill(id_skill, imagem_url, nome, descricao)
+INSERT INTO skill(id_skill, imagem_url, nome, descricao)
 VALUES ('7', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/539px-React-icon.svg.png', 'React Native','Habilidade de desenvolvimento de aplicações mobile com React Native.') ON CONFLICT DO NOTHING;
 
 /* Inserts Skills de Users */
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('1', '1', '1','Avançado') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('1', '1','Avançado') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('2', '1', '2','Intermediário') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('1', '2','Intermediário') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('3', '1', '3','Intermediário') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('1', '3','Intermediário') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('4', '1', '7','Intermediário') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('1', '7','Intermediário') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('5', '2', '4','Iniciante') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('2', '4','Iniciante') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('6', '2', '5','Iniciante') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('2', '5','Iniciante') ON CONFLICT DO NOTHING;
 
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('7', '2', '6','Iniciante') ON CONFLICT DO NOTHING;
-
-INSERT INTO user_skills(id_user_skill, id_user, id_skill, level)
-VALUES ('8', '2', '3','Iniciante') ON CONFLICT DO NOTHING;
+INSERT INTO user_skill(id_user_fk, id_skill_fk,  level)
+VALUES ('2', '6','Iniciante') ON CONFLICT DO NOTHING;
 
 /* Executar nesta ordem para apagar as tabelas. */
 

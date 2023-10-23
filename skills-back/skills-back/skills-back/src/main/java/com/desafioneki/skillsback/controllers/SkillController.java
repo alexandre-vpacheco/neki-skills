@@ -21,7 +21,7 @@ public class SkillController {
 	SkillService skillService;
 	
 	@Autowired
-	@GetMapping("/skills")
+	@GetMapping
 	public ResponseEntity<List<SkillsResumidasDTO>> findAllSkills() {
 		return new ResponseEntity<>(skillService.findAllSkills(),
 				HttpStatus.OK);
