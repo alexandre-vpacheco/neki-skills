@@ -20,13 +20,18 @@ public class LoginController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Integer> login(@RequestBody LoginRequest loginRequest) {
         User user = userRepository.findByUsernameAndSenha(loginRequest.getUsername(), loginRequest.getSenha());
 
         if (user != null) {
-            return ResponseEntity.ok("Login bem-sucedido!");
+            return ResponseEntity.status(HttpStatus.OK).body(200);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas!");
+            return ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
+
+	private ResponseEntity<Integer> ResponseEntity(HttpStatus unauthorized) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

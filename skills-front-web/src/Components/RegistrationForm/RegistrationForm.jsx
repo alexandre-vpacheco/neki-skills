@@ -45,12 +45,12 @@ function RegistrationForm() {
                 axios.post('http://localhost:8080/users/register', formData)
                 .then(response => {
                     console.log("entrou aqui")
-                    // Lida com a resposta bem-sucedida, como redirecionar o usuário ou mostrar uma mensagem de sucesso.
+                    
                     console.log('Usuário cadastrado com sucesso:', response.data);
                     alert("Usuário cadastrado com sucesso!")
                 })
                 .catch(error => {
-                    // Lida com erros na solicitação, como exibir uma mensagem de erro.
+
                     console.error('Erro ao cadastrar o usuário:', error);
                 });
                 
@@ -69,7 +69,6 @@ function RegistrationForm() {
                     <div className="modal-text">Carregando...</div>
                 </div>
             </div>
-
             <div class="r-container">
                 <form onSubmit={handleSubmit}>
                     <span className="title">Cadastro de Usuário</span>

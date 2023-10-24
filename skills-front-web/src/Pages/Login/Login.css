@@ -87,3 +87,160 @@ input {
         text-decoration-line: underline;
     }
 }
+
+* {
+    padding: 0;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fefefe;
+}
+
+.modal-text {
+    margin-left: 14px;
+    font-size: 24px;
+    color: rgb(110, 109, 109);
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 8px solid #ddd;
+    border-top: 8px solid #2196f3;
+    border-bottom: 8px solid #2196f3;
+    border-radius: 50%;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.app-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.r-container {
+    background-color: #fafafa;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 2rem;
+    height: auto;
+    text-align: center;
+    width: 500px;
+    display: flex;
+
+}
+
+.title {
+    font-size: 2rem;
+    color: #053348;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.inputText {
+    color: rgb(65, 65, 65);
+    margin-left: 0;
+    margin-bottom: -30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+input {
+    border: none;
+    outline: none;
+    padding: 0.8rem;
+    border-bottom: 1px solid #465d68;
+    background-color: #fafafa;
+    width: 350px;
+}
+
+&::placeholder {
+    color: #465d68;
+}
+
+.button1 {
+    padding: 1rem;
+    border: none;
+    background-color: #053348;
+    font-weight: 400;
+    color: #fafafa;
+    font-size: 1rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    width: 160px;
+
+
+    &:hover {
+        animation: 5s ease-in linear infinite;
+        color: #a1b3b6;
+        background-color: #074b6a;
+    }
+}
+
+.button2 {
+    margin-top: 10px;
+    padding: 1rem;
+    border: none;
+    font-weight: 400;
+    color: black;
+    font-size: 1rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    background-color: #fafafa;
+    height: 50px;
+
+
+}

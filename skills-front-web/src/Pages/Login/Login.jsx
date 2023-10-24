@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Login.css'
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
 
     const [isLogado, setIsLogado] = useState(false);
@@ -24,26 +25,26 @@ const Login = () => {
 
         } else {
 
-            try {
-                const response = await fetch('http://localhost:8080/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({username, senha}),
-                });
-
-                if (response.status === 200) {
-                    //setIsLogado(true)
-                    alert("Bem-vindo(a), " + username + "!")
-
-                    navigate(`/Home`);
-                } else {
-                    alert('Falha no login!');
-                }
-            } catch (error) {
-                alert('Erro ao fazer login! '+ " " + error +" ");
-            }
+            // try {
+            //     const response = await fetch('http://localhost:8080/login', {
+            //       method: 'POST',
+            //       headers: {
+            //         'Content-Type': 'application/json',
+            //       },
+            //       body: JSON.stringify({ username, senha }),
+            //     });
+          
+            //     if (response.status === 200) {
+            //       const data = await response.json();
+            //       localStorage.setItem('token', data.token);
+            //       navigate(`/Home`);
+            //     } else {
+            //       alert('Falha no login!');
+            //     }
+            //   } catch (error) {
+            //     alert('Erro ao fazer login!' + error);
+            //   }       
+            navigate(`/Home`);  
         }
     }
 

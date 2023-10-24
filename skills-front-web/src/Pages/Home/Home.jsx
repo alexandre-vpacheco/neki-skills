@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , Text} from "react";
 import './Home.css'
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
@@ -7,6 +7,8 @@ import SkillModal from "../../Components/SkillModal/SkillModal";
 const Home = () => {
 
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -21,6 +23,8 @@ const Home = () => {
     const [skills, setSkills] = useState([]);
 
     const handleSair = () => {
+        
+        
         navigate(`/Login`)
     }
 
@@ -28,7 +32,7 @@ const Home = () => {
         async function fetchSkills() {
           try {
             const response = await fetch('http://localhost:8080/user_skills/id_user/skills');
-            if (response.status === "Login bem-sucedido!") {
+            if (response.status === 200) {
               const data = await response.json();
               setSkills(data);
             } else {
@@ -59,8 +63,10 @@ const Home = () => {
                 </ul>
             </div>
             <div className="r-container-home">
-                <div>
-                    <Button variant="primary" onClick={handleShowModal}>
+            <span className="title">Skills Cadastradas</span>
+                <div >
+                   
+                    <Button  className="buttonStyle" variant="primary" onClick={handleShowModal}>
                          Skills Disponíveis
                     </Button>
                     <SkillModal show={showModal} handleClose={handleCloseModal} />
