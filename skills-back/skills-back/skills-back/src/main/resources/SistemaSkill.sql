@@ -1,4 +1,4 @@
- /* Criação das tabelas e constraints. (EXECUTAR NESTA ORDEM) */
+ /* Criação das tabelas e constraints caso precise.*/
  
  /*
  
@@ -14,14 +14,15 @@
 	id_skill serial NOT NULL,
 	imagem_url text NOT NULL,
 	nome_skill varchar(255) NOT NULL,
+	level varchar(50),
 	descricao text NOT NULL,
 	CONSTRAINT skill_pkey PRIMARY KEY (id_skill)
 );
 
-    CREATE TABLE public.skill_user (
+    CREATE TABLE public.user_skill (
 	id_skill_user serial NOT NULL,
-	id_user int4 REFERENCES public.user(id_user)  NOT null,
-	id_skill int4 REFERENCES skill(id_skill) NOT NULL,
+	id_user_fk int4 REFERENCES public.user(id_user)  NOT null,
+	id_skill_fk int4 REFERENCES skill(id_skill) NOT NULL,
 	level varchar(50) NOT NULL,
 	CONSTRAINT skill_user_pkey PRIMARY KEY (id_skill_user)
 );

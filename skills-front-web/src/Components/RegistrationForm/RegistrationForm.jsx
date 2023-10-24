@@ -32,8 +32,13 @@ function RegistrationForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (formData.username == ""  || formData.senha == "" || formData.senhaConfirmacao == "") {
+            alert('Todos os campos devem estar preenchidos!');
+            return;
+        }
+
         if (formData.senha !== formData.senhaConfirmacao) {
-            alert('As senhas são diferente! Revise os campos.');
+            alert('A senha deve ser a mesma! Revise os campos.');
             return;
         } else {
             setIsLoading(true);
@@ -43,17 +48,17 @@ function RegistrationForm() {
                     console.log("entrou aqui")
                     // Lida com a resposta bem-sucedida, como redirecionar o usuário ou mostrar uma mensagem de sucesso.
                     console.log('Usuário cadastrado com sucesso:', response.data);
+                    alert("Usuário cadastrado com sucesso!")
                 })
                 .catch(error => {
                     // Lida com erros na solicitação, como exibir uma mensagem de erro.
                     console.error('Erro ao cadastrar o usuário:', error);
                 });
-                setIsLoading(false);
+                
                 setFormData(initialFormData);  
-                alert("Usuário cadastrado com sucesso!")
+                setIsLoading(false);
                 navigate(`/Login`);                   
-            }, 500)         
-
+            }, 500)           
         }
     };
 
@@ -96,7 +101,7 @@ function RegistrationForm() {
                     />
                     <button type="submit" className="button1" onClick={handleSubmit}>Cadastrar</button>
                 </form>
-                <button className="button2" onClick={handleLogin}><p >Já possui conta? Login.</p></button>
+                <button className="button2" onClick={handleLogin}><p >Já possui conta? Faça o login.</p></button>
             </div>
         </>
     );

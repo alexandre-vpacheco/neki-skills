@@ -2,7 +2,9 @@ package com.desafioneki.skillsback.exceptions;
 
 public class UsernameAlreadyExistsException extends RuntimeException {
 
-	   public UsernameAlreadyExistsException() {
+	private static final long serialVersionUID = 1L;
+
+	public UsernameAlreadyExistsException() {
 	        super("Nome de usuário já está em uso!");
 	    }
 

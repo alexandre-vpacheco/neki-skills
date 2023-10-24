@@ -1,15 +1,26 @@
 import './App.css';
 import Login from './Pages/Login/Login';
-import Rotas from './Routes/Routes';
-import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './Pages/Home/Home';
+import Cadastro from './Pages/Cadastro/Cadastro';
+import NotFound from './Pages/NotFound/NotFound';
+//import Rotas from './Routes/Routes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-
   return (
     <BrowserRouter>
-      <div className='content-container' style={{ minHeight: 'calc(100vh - 350px)' }}>
-        <Rotas />
-      </div>
+      <Routes>
+        {/* ROTAS PÚBLICAS */}
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Cadastro" element={<Cadastro />} />
+
+        {/* ROTAS USUÁRIO */}
+        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
+
+        {/* OUTRAS */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   )
 }

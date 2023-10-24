@@ -36,6 +36,14 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserSkill> userSkills = new ArrayList<>();
+	
+//	public User(Integer id_user, @NotBlank String username, @NotBlank String senha, List<UserSkill> userSkills) {
+//		super();
+//		this.id_user = id_user;
+//		this.username = username;
+//		this.senha = senha;
+//		this.userSkills = userSkills;
+//	}
 
 	public Integer getId_user() {
 		return id_user;
@@ -59,5 +67,11 @@ public class User {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id_user=" + id_user + ", username=" + username + ", senha=" + senha + ", userSkills=" + userSkills
+				+ "]";
 	}
 }

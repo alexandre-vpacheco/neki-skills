@@ -43,5 +43,11 @@ public class UserResumidoDTO {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "UserResumidoDTO [id_user=" + id_user + ", username=" + username + ", senha=" + senha + "]";
+	}
+	
 }

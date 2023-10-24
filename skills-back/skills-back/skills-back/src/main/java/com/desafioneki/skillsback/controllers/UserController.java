@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.desafioneki.skillsback.services.UserService;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/users")
 public class UserController {
 	
@@ -56,8 +58,16 @@ public class UserController {
         }
 
         // Cria um novo usuário.
-        User user = userService.createUser(registrationRequest.getUsername(), registrationRequest.getSenha());
+        @SuppressWarnings("unused")
+		User user = userService.createUser(registrationRequest.getUsername(), registrationRequest.getSenha());
 
         return ResponseEntity.ok("Usuário registrado com sucesso!");
     }
+    
+//    @PostMapping("/save")
+//    public String saveUser(@RequestBody UserResumidoDTO userResumidoDto) {
+//    	
+//    	String id_user = userService.addUser(userResumidoDto);
+//    	return id_user;
+//    }
 }
