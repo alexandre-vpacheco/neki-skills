@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './RegistrationForm.css'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 function RegistrationForm() {
 
@@ -67,7 +66,7 @@ function RegistrationForm() {
             <div style={{ display: isLoading ? "flex" : "none" }} className="modal">
                 <div className="modal-content">
                     <div className="loader"></div>
-                    <div className="modal-text">Loading...</div>
+                    <div className="modal-text">Carregando...</div>
                 </div>
             </div>
 
