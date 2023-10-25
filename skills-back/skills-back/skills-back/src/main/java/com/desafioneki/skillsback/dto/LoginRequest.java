@@ -1,22 +1,23 @@
-package com.desafioneki.skillsback.services;
+package com.desafioneki.skillsback.dto;
 
-public class UserRegistrationRequest {
-	
-    private String username;
-    private String senha;
-    
+public class LoginRequest {
+
+	private String username;
+	private String senha;
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-    
-    
 }

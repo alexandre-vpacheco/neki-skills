@@ -12,48 +12,44 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafioneki.skillsback.dto.UserSkillDTO;
-import com.desafioneki.skillsback.repositories.UserRepository;
+import com.desafioneki.skillsback.dto.SkillAssociationDTO;
 import com.desafioneki.skillsback.services.UserSkillService;
 
 @RestController
-@RequestMapping("/user_skills")
 public class UserSkillController {
+	
+    private final UserSkillService userSkillService;
 
-	@Autowired
-	UserSkillService userSkillService;
-	
-	@Autowired
-	UserRepository userRepository;
-	
-    @GetMapping("/{id_user}/skills")
-    public ResponseEntity<List<UserSkillDTO>> getSkillsByUserId(@PathVariable Integer id_user) {
-        List<UserSkillDTO> userSkills = userSkillService.getSkillsByUserId(id_user);
-        return new ResponseEntity<>(userSkills, HttpStatus.OK);
+    @Autowired
+    public UserSkillController(UserSkillService userSkillService) {
+        this.userSkillService = userSkillService;
+    }
+
+    @GetMapping("/users_skills/{id_user}/skills")
+    public List<Map<String, Object>> getSkillsForUser(@PathVariable Integer id_user) {
+        return userSkillService.getSkillsForUser(id_user);
     }
     
-    @PostMapping("/associate")
-    public ResponseEntity<String> associateSkill(@RequestBody UserSkillDTO userSkillDTO) {
-        userSkillService.associateSkill(userSkillDTO);
-        return ResponseEntity.ok("Skill associada com sucesso!");
+    @PostMapping("/users_skills/associate")
+    public ResponseEntity<String> associateSkillWithUser(@RequestBody SkillAssociationDTO skillAssociationDTO) {
+        userSkillService.associateSkillWithUser(skillAssociationDTO.getId_user_fk(), skillAssociationDTO.getId_skill_fk(), skillAssociationDTO.getNivel());
+        return new ResponseEntity<>("Skill associada com sucesso!", HttpStatus.CREATED);
     }
     
-    
-    @PatchMapping("/{id_user_skill}")
+    @PatchMapping("/users_skills/{id_user_skill}")
     public ResponseEntity<String> updateSkillLevel(
-        @PathVariable Integer id_user_skill,
-        @RequestBody Map<String, String> request) {
-        String newLevel = request.get("level");
-        userSkillService.updateSkillLevel(id_user_skill, newLevel);
-        return ResponseEntity.ok("Skill level updated successfully");
+            @PathVariable Integer id_user_skill,
+            @RequestBody Map<String, String> requestBody) {
+        String level = requestBody.get("level");
+        userSkillService.updateSkillLevel(id_user_skill, level);
+        return new ResponseEntity<>("Nivel de skill atualizado!", HttpStatus.OK);
     }
     
-    @DeleteMapping("/delete/{id_user_skill}")
-    public ResponseEntity<String> deleteSkillAssociation(@PathVariable Integer id_user_skill) {
-        userSkillService.deleteSkillAssociation(id_user_skill);
-        return ResponseEntity.ok("Associação de skill deletada com sucesso!");
+    @DeleteMapping("/users_skills/delete/{id_user_skill}")
+    public ResponseEntity<String> deleteSkill(@PathVariable Integer id_user_skill) {
+        userSkillService.deleteSkill(id_user_skill);
+        return new ResponseEntity<>("Associação de skill desfeita!", HttpStatus.OK);
     }
 }

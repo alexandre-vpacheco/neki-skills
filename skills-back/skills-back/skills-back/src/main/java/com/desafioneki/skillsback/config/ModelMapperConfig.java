@@ -1,4 +1,4 @@
-package com.desafioneki.skillsback;
+package com.desafioneki.skillsback.config;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

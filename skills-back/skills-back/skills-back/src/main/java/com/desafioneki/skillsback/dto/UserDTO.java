@@ -1,16 +1,11 @@
-package com.desafioneki.skillsback.entities;
+package com.desafioneki.skillsback.dto;
 
-public class LoginRequest {
+public class UserDTO {
 
 	private String username;
 	private String senha;
 
-	public LoginRequest(String username, String senha) {
-		super();
-		this.username = username;
-		this.senha = senha;
-	}
-
+	
 	public String getUsername() {
 		return username;
 	}

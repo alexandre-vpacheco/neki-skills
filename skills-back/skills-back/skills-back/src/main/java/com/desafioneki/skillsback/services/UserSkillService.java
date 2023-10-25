@@ -1,81 +1,43 @@
 package com.desafioneki.skillsback.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import com.desafioneki.skillsback.dto.UserSkillDTO;
-import com.desafioneki.skillsback.entities.Skill;
-import com.desafioneki.skillsback.entities.User;
-import com.desafioneki.skillsback.entities.UserSkill;
-import com.desafioneki.skillsback.repositories.SkillRepository;
-import com.desafioneki.skillsback.repositories.UserRepository;
-import com.desafioneki.skillsback.repositories.UserSkillRepository;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserSkillService {
 
-    @Autowired
-    private UserSkillRepository userSkillRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private SkillRepository skillRepository;
-
-    public List<UserSkillDTO> getSkillsByUserId(Integer id_user) {
-        List<UserSkill> userSkills = userSkillRepository.findByUserId(id_user);
-        List<UserSkillDTO> userSkillDTOs = new ArrayList<>();
-
-        for (UserSkill userSkill : userSkills) {
-            UserSkillDTO userSkillDTO = new UserSkillDTO();
-            userSkillDTO.setId_user_skill(userSkill.getId_user_skill());
-            userSkillDTO.setId_user_fk(userSkill.getUser().getId_user());
-            userSkillDTO.setId_skill_fk(userSkill.getSkill().getId_skill());
-            userSkillDTO.setLevel(userSkill.getLevel());
-            userSkillDTOs.add(userSkillDTO);
-        }
-
-        return userSkillDTOs;
+    public UserSkillService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void associateSkill(UserSkillDTO userSkillDTO) {
-        // Verifica se o usuário e a skill existem.
-        User user = userRepository.findById(userSkillDTO.getId_user_fk()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        Skill skill = skillRepository.findById(userSkillDTO.getId_skill_fk()).orElseThrow(() -> new EntityNotFoundException("Skill not found"));
-
-        // Cria a associação de UserSkill.
-        UserSkill userSkill = new UserSkill();
-        userSkill.setUser(user);
-        userSkill.setSkill(skill);
-        userSkill.setLevel(userSkillDTO.getLevel());
-
-        userSkillRepository.save(userSkill);
+    public List<Map<String, Object>> getSkillsForUser(Integer id_user) {
+        String sql = "SELECT s.id_skill, s.imagem_url, s.nome_skill, us.nivel, s.descricao " +
+                     "FROM users_skills us " +
+                     "INNER JOIN skills s ON us.id_skill_fk = s.id_skill " +
+                     "WHERE us.id_user_fk = ?";
+        return jdbcTemplate.queryForList(sql, id_user);
     }
     
-    public void updateSkillLevel(Integer id_user_skill, String newLevel) {
-        UserSkill userSkill = userSkillRepository.findById(id_user_skill)
-            .orElseThrow(() -> new EntityNotFoundException("UserSkill not found!"));
-
-        userSkill.setLevel(newLevel);
-
-        userSkillRepository.save(userSkill);
+    public void associateSkillWithUser(Integer id_user, Integer id_skill, String nivel) {
+        String sql = "INSERT INTO users_skills (id_user_fk, id_skill_fk, nivel) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, id_user, id_skill, nivel);
     }
     
-    public void deleteSkillAssociation(Integer id_user_skill) {
-        // Verifica se a associação de skill existe.
-        UserSkill userSkill = userSkillRepository.findById(id_user_skill)
-            .orElseThrow(() -> new EntityNotFoundException("UserSkill not found!"));
 
-        // Exclui a associação de skill.
-        userSkillRepository.delete(userSkill);
+    public void updateSkillLevel(int id_user_skill, String newNivel) {
+        String sql = "UPDATE users_skills SET nivel = CAST(? AS VARCHAR) WHERE id_user_skill = ?";
+        jdbcTemplate.update(sql, newNivel, id_user_skill);
     }
     
-    
-    
+    public void deleteSkill(int idUserSkill) {
+        String sql = "DELETE FROM users_skills WHERE id_user_skill = ?";
+        jdbcTemplate.update(sql, idUserSkill);
+    }
 }

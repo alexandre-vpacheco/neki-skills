@@ -1,30 +1,27 @@
 package com.desafioneki.skillsback.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafioneki.skillsback.dto.SkillsResumidasDTO;
 import com.desafioneki.skillsback.services.SkillService;
 
-
 @RestController
-@RequestMapping("/skills")
 public class SkillController {
 
-	@Autowired
-	SkillService skillService;
-	
-	@Autowired
-	@GetMapping
-	public ResponseEntity<List<SkillsResumidasDTO>> findAllSkills() {
-		return new ResponseEntity<>(skillService.findAllSkills(),
-				HttpStatus.OK);
-	}
+    private final SkillService skillService;
+
+    @Autowired
+    public SkillController(SkillService skillService) {
+        this.skillService = skillService;
+    }
+
+    @GetMapping("/skills")
+    public List<Map<String, Object>> getAllSkills() {
+        return skillService.getAllSkills();
+    }
 	
 }

@@ -33,8 +33,6 @@ export default function Cadastro() {
             <View style={styles.container}>
                 <Loading visible={visible} />
 
-                <Text style={styles.titleTxt}>PÁGINA DE CADASTRO</Text>
-
                 <Text style={styles.titleTxt}>Usuário:</Text>
                 <Text style={styles.titleTxt}>Senha:</Text>
                 <Text style={styles.titleTxt}>Confirme a senha:</Text>
