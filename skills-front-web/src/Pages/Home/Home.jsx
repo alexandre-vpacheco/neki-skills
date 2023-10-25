@@ -31,7 +31,7 @@ const Home = () => {
     useEffect(() => {
         async function fetchSkills() {
           try {
-            const response = await fetch('http://localhost:8080/user_skills/id_user/skills');
+            const response = await fetch('http://localhost:8080/users_skills/id_user/skills');
             if (response.status === 200) {
               const data = await response.json();
               setSkills(data);

@@ -28,7 +28,7 @@
 /* Inserts Users */
 
 INSERT INTO users(username, senha)
-VALUES('alexandre', '123456') ON conflict(username) do nothing;
+VALUES('Alexandre', '123456') ON conflict(username) do nothing;
 
 INSERT INTO users(username, senha)
 VALUES('joao', '123456') ON conflict(username) do nothing;

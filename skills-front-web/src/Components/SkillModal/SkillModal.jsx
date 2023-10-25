@@ -8,21 +8,11 @@ export default function SkillModal({ show, handleClose }) {
 
     const [skills, setSkills] = useState([]);
 
-    useEffect(() => {
-
-        if (show) {
-            // Fazer a requisição para o endpoint da API que retorna as skills
-            axios.get('http://localhost:8080/skills')
-                .then(response => {
-                    // Definir a lista de skills com os dados recebidos
-                    setSkills(response.data);
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar skills:', error);
-                });
-        }
-
-    }, [show]);
+    useEffect((show) => {
+        axios.get('http://localhost:8080/skills').then((response) => {
+          setSkills(response.data);
+        });
+      }, [show]);
 
     return (
         <Modal className='modal-container' show={show} onHide={handleClose}>
@@ -30,7 +20,7 @@ export default function SkillModal({ show, handleClose }) {
             <Modal.Body className='text'>
                 <ol>
                     {skills.map((skill) => (
-                        <li className='text' key={skill.id_skill}>{skill.nome}</li>
+                        <li className='text' key={skill.id_skill}>{skill.imagem_url}{skill.nome_skill}{skill.descricao}</li>
                     ))}
                 </ol>
             </Modal.Body>
